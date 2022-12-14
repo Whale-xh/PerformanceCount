@@ -6,7 +6,7 @@ Collect hardware count and temperature when running benchmark
 
 ### Prerequisites:
 System：Ubuntu 20.04.5 LTS    
-cpu:i5-6500
+cpu:i5-6500      
 third-party tools:    
     (1)cpupower, to control the running frequency  
     (2)lm-sensors, to read temperature sensor results  
