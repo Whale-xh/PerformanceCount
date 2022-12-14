@@ -41,12 +41,14 @@ directory. For example, to disable reading hardware sensors, change line 3 to:
 ### run the program:
 #### first change the cpu frquency governor as userspace, if you want to control the cpu frequency
 a. sudo cpupower -c all frequency-set -g userspace 
+#### set FREQUENCY that your device support
+b. sudo cpupower -c all frequency-set -f FREQUENCY
 #### then go to the program directory
-b. cd ../dataset
+c. cd ../dataset
 #### then make
-c. make
+d. make
 #### run the program and collecting data
-d. sudo python test.py
+e. sudo python test.py
 
 
 ### notice
