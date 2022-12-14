@@ -5,7 +5,7 @@ Collect hardware count and temperature when running benchmark
 ## Very simple instruction of installation:  
 
 ### Prerequisites:
-System：Ubuntu 20.04.5 LTS
+System：Ubuntu 20.04.5 LTS    
 cpu:i5-6500
 third-party tools:    
     (1)cpupower, to control the running frequency  
