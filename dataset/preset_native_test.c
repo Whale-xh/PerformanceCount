@@ -18,27 +18,24 @@ typedef long long TIME_T;
 #define num_events 37
 #define num_temperature 10
 
- void handle_error (int retval)
+void handle_error (int retval)
 {
      printf("PAPI error %d: %s\n", retval, PAPI_strerror(retval));
      exit(1);
 }
 
-	long long values[num_samples][num_events]; 
-	int temperature[num_samples][num_temperature]; 
+long long values[num_samples][num_events]; 
+int temperature[num_samples][num_temperature]; 
     
     
 int real_wrapper(){
-     int EventSet=PAPI_NULL,retval;
-     int i_pre,i,counter_sample;
-
-    FILE *file_w=NULL,*file_r=NULL;
+	int EventSet=PAPI_NULL,retval;
+	int i_pre,i,counter_sample;
+	FILE *file_w=NULL,*file_r=NULL;
 	int interval,sleep_time=100;//单位ms
-
-	struct TIMEB ts1,ts2;
-    TIME_T t1,t2;
-    int ti;
-    
+	struct TIMEB ts1,ts2;    
+	TIME_T t1,t2;
+	int ti;
 	int fd;
 	char  buf[12];
 	char *temp[num_temperature]={"/sys/class/hwmon/hwmon2/temp1_input",
@@ -53,8 +50,14 @@ int real_wrapper(){
 			   "/sys/class/hwmon/hwmon1/temp3_input"};
 	ssize_t numwrite;
 
-	if (PAPI_library_init(PAPI_VER_CURRENT) != PAPI_VER_CURRENT)
-    if (retval != PAPI_OK) handle_error(retval);
+	
+	retval = PAPI_library_init(PAPI_VER_CURRENT);
+	if (retval != PAPI_VER_CURRENT) 
+	{
+		fprintf(stderr, "PAPI library init error!\n");
+		exit(1);
+	}
+    	if (retval != PAPI_OK) handle_error(retval);
 
 	PAPI_create_eventset(&EventSet);
 	
@@ -78,9 +81,10 @@ int real_wrapper(){
 	PAPI_L2_TCM,PAPI_L3_TCM,PAPI_CA_SNP,PAPI_CA_SHR,PAPI_CA_CLN,PAPI_TOT_INS,
 	PAPI_L3_DCA,PAPI_L2_ICA,PAPI_L3_ICA,PAPI_L2_ICR,PAPI_L3_ICR,PAPI_L3_TCA};
 
-    for(i=0;i<17;i++){
-     	retval=PAPI_add_event(EventSet, set[i]);
-     	if (retval != PAPI_OK) handle_error(retval);
+   	for(i=0;i<17;i++)
+	{
+     		retval=PAPI_add_event(EventSet, set[i]);
+     		if (retval != PAPI_OK) handle_error(retval);
 	}
 
 	//add native event to Event Set
@@ -88,18 +92,18 @@ int real_wrapper(){
 	char native_event[100];
 	file_native=fopen("native_event.txt","r");
 	if (file_native == NULL)
-    {
-        printf("Error! opening file\n");
-        exit(1);         
-    }
+    	{
+        	printf("Error! opening file\n");
+        	exit(1);         
+    	}
 	while (!feof(file_native))
-    {
-        fscanf(file_native,"%s\n",native_event);
-        retval=PAPI_add_named_event(EventSet,native_event);
-        if(retval!=PAPI_OK) {
-            handle_error(retval);
-        }
-    }
+    	{
+        	fscanf(file_native,"%s\n",native_event);
+        	retval=PAPI_add_named_event(EventSet,native_event);
+        	if(retval!=PAPI_OK) {
+	            handle_error(retval);
+        	}
+    	}
 	fclose(file_native);
 
 	/*int num;
