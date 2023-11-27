@@ -22,17 +22,17 @@ directory. For example, to disable reading hardware sensors, change line 3 to:
  set(HARD_TEMPERATURE_SENSOR_ENABLE "OFF")
 #### pre-complile PAPI, if you want to use the software temperature estimator
  cd third_party_lib/papi-5.5.1/src
- 
+
  ./configure
- 
+
  make
- 
+
  sudo make install-all
- 
+
  cd ../../../
 #### make and go to the program build directory
  mkdir build
- 
+
  cd build
 #### cmake
  cmake ..
@@ -45,7 +45,7 @@ a. sudo cpupower -c all frequency-set -g userspace
 #### set FREQUENCY that your device support
 b. sudo cpupower -c all frequency-set -f FREQUENCY
 #### then go to the program directory
-c. cd ../dataset
+c. cd ../main
 #### then make
 d. make
 #### run the program and collecting data
@@ -60,4 +60,4 @@ preset_native_test.c
 
 
 
-    
+​    
