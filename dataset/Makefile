@@ -1,3 +1,5 @@
-preset_native_test:preset_native_test.c
-	gcc preset_native_test.c -o preset_native_test -lpapi -lpthread
+MainProgram:MainProgram.c
+	gcc MainProgram.c -o MainProgram -lpapi -lpthread
+GetCpuUtilization:GetCpuUtilization.c
+	gcc GetCpuUtilization.c -o GetCpuUtilization
 
