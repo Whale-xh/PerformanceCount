@@ -1,6 +1,6 @@
 # Performance Count
 
-Collect hardware count and temperature when running benchmark
+**Collect hardware count and temperature when running benchmark**
 
 ## Very simple instruction of installation:  
 
